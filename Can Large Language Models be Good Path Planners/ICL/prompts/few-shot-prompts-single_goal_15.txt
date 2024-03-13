@@ -1,0 +1,46 @@
+Provide a sequence of actions to navigate a world to reach a goal similarly to the examples below. (0,0) is located in the upper-left corner and (M, N) lies in the M row and N column.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,1). Go from (0,1) to (3,4)
+Actions: right right right down down down 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,4). Go from (5,4) to (2,4)
+Actions: up up up 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (5,3). Go from (2,4) to (4,3)
+Actions: left down down 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,4) and (1,5). Go from (0,5) to (1,1)
+Actions: Goal not reachable
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (1,5) and (5,0). Go from (5,5) to (0,1)
+Actions: up up up left up up left left left 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (4,3) and (2,3). Go from (5,5) to (5,4)
+Actions: left 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,3), (2,5) and (5,2). Go from (4,2) to (0,5)
+Actions: up up up right right up right 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,3), (2,1) and (4,2). Go from (1,5) to (0,5)
+Actions: up 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (1,0), (0,0) and (1,3). Go from (3,2) to (3,1)
+Actions: left 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (3,5), (4,2), (3,3) and (0,4). Go from (1,5) to (3,1)
+Actions: left left left left down down 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (5,1), (4,4), (1,4) and (1,5). Go from (5,5) to (3,0)
+Actions: up up left left left left left 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,4), (4,4), (5,3) and (4,5). Go from (0,4) to (5,5)
+Actions: Goal not reachable.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,5), (5,2), (0,4), (1,4) and (0,1). Go from (4,2) to (1,2)
+Actions: up up up 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,5), (5,0), (5,4), (0,0) and (5,3). Go from (5,2) to (2,4)
+Actions: up up up right right 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (3,0), (2,3), (1,2), (2,5) and (0,0). Go from (4,3) to (5,4)
+Actions: right down 

@@ -1,0 +1,51 @@
+Provide a sequence of actions to navigate a world to reach a goal similarly to the examples below. (0,0) is located in the upper-left corner and (M, N) lies in the M row and N column.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,3), (5,5) and (5,2). Go from (0,4) to (5,0)
+Thought 1: (5,0) is 5 steps down and 4 steps to the left of (0,4). To avoid the obstacle at (2,3), which is 2 steps down and 1 step to the left from (0,4), I should move left first. 
+Act 1: left left left left down down down down down.
+Obs 1: Performing the action sequence leads to (5,0). The task has been solved.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (3,0), (1,5), (3,4), (5,2) and (5,3). Go from (1,4) to (4,0)
+Thought 1: (4,0) is 3 steps down and 4 steps to the left of (1,4). To avoid the obstacle at (3,0), which is 2 steps down and 4 steps to the left from (1,4), I should move left last. 
+Act 1: down down down left left left left.
+Obs 1: After executing the first step, I am at (2,4). If I execute the next step I will run into the obstacle at (4,3).
+Thought 2: I have to find a path to get to (4,0) from (2,4). (4,0) is 2 steps down and 4 steps to the left from (2,4). In order to avoid the obstacle at (4,3), which is one step down, I have to start by moving left first.
+Act 2: left left left left down down
+Obs 2: After executing the first 4 steps, I am at (2,0). If I execute the next step I will run into the obstacle at (3,0).
+Thought 3: I have to find a path to get to (4,0) from (2,0). (4,0) is 2 steps down from (2,0). In order to avoid the obstacle at (4,3), which is one step down, I have to move right, then take two steps down, then move left.
+Act 3: right down down left
+Obs 3: Performing the action sequence leads to (4,0). The task has been solved.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,5), (3,5), (0,0), (4,5) and (4,4). Go from (1,1) to (5,0)
+Thought 1: (5,0) is 4 steps down and 1 step to the left of (1,1). To avoid the obstacle at (0,0), which is 1 step up and 1 step to the left from (1,1), I should move down first. 
+Act 1: down down down down left.
+Obs 1: Performing the action sequence leads to (5,0). The task has been solved.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (5,5), (5,0), (3,5) and (4,0). Go from (3,4) to (1,3)
+Thought 1: (1,3) is 2 steps up and 1 step to the left of (3,4). No obstacles fall on this path. 
+Act 1: up up left
+Obs 1: Performing the action sequence leads to (1,3). The task has been solved.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (1,3), (4,2), (3,3) and (1,4). Go from (3,2) to (4,4)
+Thought 1: (4,4) is 1 step down and 2 step to the right of (3,2). To avoid the obstacle at (3,3) which is one step to the right, I have to go down first
+Act 1: down left left
+Obs 1: If I execute the first step I will run into the obstacle at (4,2). 
+Thought 2:  I have to find a path to get to (4,4) from (3,2). (4,4) is 1 step down and 2 step to the right of (3,2). In order to avoid the obstacle at (4,2) which is one step down, and the obstacle at (3,3) which one step to the right, I have to move up, take two steps to the right and two steps down.
+Act 2: up right right down down
+Obs 2: Performing the action sequence leads to (4,4). The task has been solved.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,3), (1,2), (3,5) and (0,1). Go from (0,2) to (3,1)
+Thought 1: (3,1) is 3 steps down and 1 step to the left of (0,2). To avoid the obstacle at (1,2), which is 1 step down from (0,2), I should start by moving down.
+Act 1: down down down left
+Obs 1: If I execute the first step I will run into the obstacle at (1,2).
+Thought 2: (0,2) is surrounded by obstacles. Therefore, the goal is not reachable from my location.
+Act 2: No action
+Obs 2: No action is to be performed. The goal is not reachable. The task has been solved.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,5), (5,2), (0,4), (1,4) and (0,1). Go from (4,1) to (1,5)
+Thought 1: (1,5) is 3 steps up and 4 steps to the right of (4,1). To avoid the obstacle at (2,5), which is 2 steps up and 4 steps to the right from (4,1), I should move right last.
+Act 1: up up up right right right right
+Obs 1: After executing the first 5 steps, I am at (1,3). If I execute the next step I will run into the obstacle at (1,4).
+Thought 2: (1,5) is surrounded by obstacles. Therefore, the goal is not reachable from my location.
+Act 2: No action
+Obs 2: No action is to be performed. The goal is not reachable. The task has been solved.

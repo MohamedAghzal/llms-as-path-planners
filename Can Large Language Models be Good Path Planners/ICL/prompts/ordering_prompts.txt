@@ -1,0 +1,16 @@
+Provide a plan to navigate a world to reach all the goals while satisfying any constraints similarly to the examples below. (0,0) is located in the upper-left corner and (M, N) lies in the M row and N column.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (5,2), (2,3) and (5,0). You are at (0,2). You have to visit p0, p1, p2, p3 and p4. p0 is located at (3,5), p1 is located at (5,4), p2 is located at (2,4), p3 is located at (3,2) and p4 is located at (4,4). Visit p1 and p3 before p0, p2 and p4.
+Order: p3, p1, p4, p2, p0
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,5), (0,2) and (4,5). You are at (4,2). You have to visit p0, p1, p2, p3 and p4. p0 is located at (0,1), p1 is located at (2,2), p2 is located at (1,2), p3 is located at (5,3) and p4 is located at (5,5). 
+Order: p3, p4, p1, p2, p0
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (1,0), (3,3) and (1,1). You are at (3,5). You have to visit p0, p1, p2, p3, p4 and p5. p0 is located at (1,3), p1 is located at (0,4), p2 is located at (4,0), p3 is located at (2,4), p4 is located at (5,0) and p5 is located at (5,4). Visit p4, p3 and p2 before p0, p1 and p5. 
+Order: p3, p2, p4, p5, p0, p1
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,1). You are at (4,0). You have to visit p0, p1, p2, p3 and p4. p0 is located at (3,2), p1 is located at (1,1), p2 is located at (2,2), p3 is located at (0,4) and p4 is located at (1,5). Visit p2 and p3 before p0, p1 and p4 
+Order: p2, p3, p4, p1, p0
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,1). You are at (5,3). You have to visit p0 and p1. p0 is located at (2,5) and p1 is located at (2,2). Visit p1 before p0 
+Order: p1, p0

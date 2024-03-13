@@ -1,0 +1,16 @@
+Provide a sequence of actions to navigate a world to reach a goal similarly to the examples below. (0,0) is located in the upper-left corner and (M, N) lies in the M row and N column.
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,1). Go from (0,1) to (3,4)
+Actions: right right right down down down 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (1,5) and (1,2). Go from (5,4) to (0,5)
+Actions: up up up up up right 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (0,3), (2,5) and (5,2). Go from (4,2) to (0,5)
+Actions: up up up right right up right 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (3,5), (4,2), (3,3) and (0,4). Go from (1,5) to (3,1)
+Actions: left left left left down down 
+###
+Task: You are in a 6 by 6 world. There are obstacles that you have to avoid at: (2,5), (5,2), (0,4), (1,4) and (0,1). Go from (4,2) to (1,2)
+Actions: up up up 
