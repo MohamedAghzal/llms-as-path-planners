@@ -1,0 +1,181 @@
+Generate a path to navigate from the initial location to the goal location similarly to the examples below. (0,0) is located in the upper-left corner and (M, N) lies in the M row and N column.
+ 
+###
+Description in code:
+
+#The goal is to navigate a 25x25 grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = (19, 11)
+initial_location = (17, 19)
+entrances = [(0, 3), (2, 5), (4, 6), (6, 10), (8, 9)]
+
+for i in range(0, 12, 2):
+    for x in range(i, 25 - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    for y in range(i, 25 - i):
+        if((y, 25 - i - 1) not in entrances):
+            obstacles.append((y, 25 - i - 1))
+    for x in range(25 - i - 1, i, -1):
+        if((25 - i - 1, x) not in entrances):
+            obstacles.append((25 - i - 1, x))     
+    for y in range(25 - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, 25, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+
+Solution: down down left left left left left left left left 
+
+###
+Description in code:
+
+#The goal is to navigate a 25x25 grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = (15, 1)
+initial_location = (20, 1)
+entrances = [(0, 3), (2, 5), (4, 6), (6, 10), (8, 9)]
+
+for i in range(0, 12, 2):
+    for x in range(i, 25 - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    for y in range(i, 25 - i):
+        if((y, 25 - i - 1) not in entrances):
+            obstacles.append((y, 25 - i - 1))
+    for x in range(25 - i - 1, i, -1):
+        if((25 - i - 1, x) not in entrances):
+            obstacles.append((25 - i - 1, x))     
+    for y in range(25 - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, 25, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+
+Solution: up up up up up 
+
+###
+Description in code:
+
+#The goal is to navigate a 25x25 grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = (3, 19)
+initial_location = (12, 3)
+entrances = [(0, 3), (2, 5), (4, 6), (6, 10), (8, 9)]
+
+for i in range(0, 12, 2):
+    for x in range(i, 25 - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    for y in range(i, 25 - i):
+        if((y, 25 - i - 1) not in entrances):
+            obstacles.append((y, 25 - i - 1))
+    for x in range(25 - i - 1, i, -1):
+        if((25 - i - 1, x) not in entrances):
+            obstacles.append((25 - i - 1, x))     
+    for y in range(25 - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, 25, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+
+Solution: up up up up up up up up up right right right right right right right right right right right right right right right right 
+
+###
+Description in code:
+
+#The goal is to navigate a 25x25 grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = (5, 8)
+initial_location = (19, 8)
+entrances = [(0, 3), (2, 5), (4, 6), (6, 10), (8, 9)]
+
+for i in range(0, 12, 2):
+    for x in range(i, 25 - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    for y in range(i, 25 - i):
+        if((y, 25 - i - 1) not in entrances):
+            obstacles.append((y, 25 - i - 1))
+    for x in range(25 - i - 1, i, -1):
+        if((25 - i - 1, x) not in entrances):
+            obstacles.append((25 - i - 1, x))     
+    for y in range(25 - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, 25, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+
+Solution: left left left up up up up up up up up up up up up up up right right right 
+
+###
+Description in code:
+
+#The goal is to navigate a 25x25 grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = (7, 9)
+initial_location = (9, 17)
+entrances = [(0, 3), (2, 5), (4, 6), (6, 10), (8, 9)]
+
+for i in range(0, 12, 2):
+    for x in range(i, 25 - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    for y in range(i, 25 - i):
+        if((y, 25 - i - 1) not in entrances):
+            obstacles.append((y, 25 - i - 1))
+    for x in range(25 - i - 1, i, -1):
+        if((25 - i - 1, x) not in entrances):
+            obstacles.append((25 - i - 1, x))     
+    for y in range(25 - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, 25, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+
+Solution: up up left left left left left left left left 
+
+###
+Description in code:
+
+#The goal is to navigate a 14x14 grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = (10, 17)
+initial_location = (14, 19)
+entrances = [(0, 3), (2, 5), (4, 6), (6, 10), (8, 9)]
+
+for i in range(0, 12, 2):
+    for x in range(i, 25 - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    for y in range(i, 25 - i):
+        if((y, 25 - i - 1) not in entrances):
+            obstacles.append((y, 25 - i - 1))
+    for x in range(25 - i - 1, i, -1):
+        if((25 - i - 1, x) not in entrances):
+            obstacles.append((25 - i - 1, x))     
+    for y in range(25 - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, 25, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+
+Solution: 
