@@ -464,7 +464,8 @@ def main():
 
             samples.append(sample)
 
-        with open(str(sys.argv[1]).replace('.json', '') + '_samples.json', 'w') as fo:
+        dir = '../single_goal/' if len(goals) == 1 else '../multi_goal/' 
+        with open(dir+str(sys.argv[1].split('/')[-1]).replace('.json', '') + '_samples.json', 'w') as fo:
                 json_object = json.dumps(samples, indent = 4)
                 fo.write(json_object)
                 fo.write('\n')

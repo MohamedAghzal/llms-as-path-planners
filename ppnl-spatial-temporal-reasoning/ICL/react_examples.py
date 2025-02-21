@@ -5,8 +5,8 @@ import time
 import tiktoken
 import random
 
-openai.organization = "org"
-key = "api-key"
+openai.organization = ""
+key = ""
 openai.api_key = key
 openai.Model.list()
 

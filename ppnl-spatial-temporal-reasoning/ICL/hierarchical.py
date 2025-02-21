@@ -2,8 +2,8 @@ import json
 import openai
 import time
 
-openai.organization = "org"
-key = "api-key"
+openai.organization = ""
+key = ""
 
 openai.api_key = key
 openai.Model.list()

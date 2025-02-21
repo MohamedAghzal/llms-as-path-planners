@@ -162,11 +162,7 @@ for i in range(len(file)):
     print(plan)
     count += 1
 
-    print('LENGTHS', len(plan.replace(' ', '')), len(p['ground_truth'].replace(' ', '')))
-    print('LENGTHS', path, plan,'----', p['ground_truth'])
-
     if(len(plan.replace(' ', '')) == len(p['ground_truth'].replace(' ', ''))):
-        print('AHAAAA')
         optimal += 1
 
 

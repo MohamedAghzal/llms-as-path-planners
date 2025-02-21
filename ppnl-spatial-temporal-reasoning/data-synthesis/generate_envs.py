@@ -1,7 +1,7 @@
 import random
 import sys
 import json
-
+import os
 def generate_environments(n, min_obstacles, max_obstacles):
     obsts = []
 
@@ -40,7 +40,12 @@ def main():
         envs.append(env)
         if(len(envs) == target):
             break
-    with open('environments' + str(nb_obstacles) + '.json', 'w') as fo:
+    
+    add=''
+    if nb_obstacles > 5:
+        add='more_obstacles'
+    os.makedirs(f"environments/{shape}x{shape}{add}", exist_ok=True)
+    with open(f'environments/{shape}x{shape}{add}/environments' + str(nb_obstacles) + '.json', 'w') as fo:
         json_object = json.dumps(envs, indent = 4)
         fo.write(json_object)
         fo.write('\n')

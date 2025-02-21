@@ -4,8 +4,8 @@ import json
 import time
 import tiktoken
 
-openai.organization = "org-hNldcAS0NRKQWySC1hU3BId8"
-key = "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"
+openai.organization = ""
+key = ""
 openai.api_key = key
 openai.Model.list()
 

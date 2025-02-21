@@ -6,8 +6,8 @@ import sys
 import tiktoken
 import sys
 
-openai.organization = "org"
-key = "api-key"
+openai.organization = ""
+key = ""
 openai.api_key = key
 openai.Model.list()
 
@@ -23,7 +23,7 @@ acts = []
 
 test_file = sys.argv[1]
 eng = json.load(open(test_file))
-with open(str(sys.argv[1]), 'r') as f:
+with open(str(sys.argv[2]), 'r') as f:
     prompt = f.read()
 
 out = []
