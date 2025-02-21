@@ -13,7 +13,7 @@ If you find this work useful for your own research please cite the following pap
 
 
 
-```
+```bibtex
 @inproceedings{aghzal2024can,
   title={Can Large Language Models be Good Path Planners? A Benchmark and Investigation on Spatial-temporal Reasoning},
   author={Aghzal, Mohamed and Plaku, Erion and Yao, Ziyu},
