@@ -24,9 +24,33 @@ PPNL is a benchmark designed to assess the spatial-temporal reasoning abilities 
 
 In order to generate all single goal data (using the same values as the paper), you can run the script 
 
-``./generate_all_sg_data.sh``
+``./data-synthesis/generate_all_sg_data.sh``
 
 In order to generate all single goal data (using the same values as the paper), first run the script for the single-goal data then run the following script 
 
-``./generate_all_mg_data.sh``
+``./data-synthesis/generate_all_mg_data.sh``
+
+In order to generate custom data, the following three steps have to be followed:
+
+1. **Generate Environments**: run the following python script
+
+``python data-synthesis/generate_envs $dim $num_obstacles $number_environments``
+
+replace the command line arguments with desired values for
+
+- **$dim - grid dimension:** This is an integer value deciding the value for *N*. For example, replace this parameter with **6** to generate **6x6** grids.
+- **$num_obstacles:** The number of obstacles in the environments.
+- **$num_environments:** The number of the environments to be generated.
+
+This generated environments will be generated under 
+
+2. **Place agent and goals**: run the following python script
+
+``python data-synthesis/place_agent_goals.py $setting $num_goals $generate_train_set``
+
+replace the command line arguments with desired values for
+
+- **$setting:** A path to the directory to the environments generated in step 1.
+- **$num_goals:** The number of desired goals.
+- **$generate_train_set:** set to 1 if you would like to generate all sets (training, dev, seen, unseen) or 0 if you would only like the test set. 
 
