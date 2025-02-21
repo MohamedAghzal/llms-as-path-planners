@@ -66,4 +66,4 @@ replace the command line arguments with desired values for
 
 ## **Using Pre-generated Data**
 
-While we recommend generating new data instances in order to avoid data contamination issues (e.g. the LLM having encountered the data during pre-training), we also provide a set of pre-generated datasets to help you get started. This can be found under the directory [single_goal](../single_goal) for the single goal setting and [multi_goal](../multi_goal) for the multi-goal setting.
+While we recommend generating new data instances in order to avoid data contamination issues (e.g. the LLM having encountered the data during pre-training), we also provide a set of pre-generated datasets to help you get started. This can be found under the directory [single_goal](./single_goal) for the single goal setting and [multi_goal](./multi_goal) for the multi-goal setting.
