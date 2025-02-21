@@ -20,7 +20,7 @@ PPNL is a benchmark designed to assess the spatial-temporal reasoning abilities 
   - **Constrained Ordering**: Visit specific goals before others.
 - **Additional action**: **Inspect** (marks a location as visited).
 
-![PPNL Benchmark Diagram](PPNL.pdf)
+![PPNL Benchmark Diagram](PPNL.png)
 
 In order to generate all single goal data (using the same values as the paper), you can run the script 
 
