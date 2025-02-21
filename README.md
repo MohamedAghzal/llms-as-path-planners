@@ -2,10 +2,10 @@
 
 This repository contains the code for Path Planning from Natural Language (PPNL) dataset for testing the ability of Large Language Models (LLMs) to conduct path planning, which was proposed in the following papers:
 
-- [''Can Large Language Models be Good Path Planners? A Benchmark and Investigation on Spatial-temporal Reasoning''](https://arxiv.org/abs/2310.03249): Testing LLMs ability to conduct path planning and generalize across different environment configurations and number of goals. [[Code](./ppnl-spatial-temporal-reasoning)]. 
+- [''Can Large Language Models be Good Path Planners? A Benchmark and Investigation on Spatial-temporal Reasoning''](https://arxiv.org/abs/2310.03249): Testing LLMs ability to conduct path planning and generalize across different environment configurations and number of goals. [[Code](./ppnl-spatial-temporal-reasoning)]
 
 
-Code for [''Look Further Ahead: Testing the Limits of GPT-4 in Path Planning''](https://arxiv.org/abs/2406.12000): Testing LLMs ability to conduct path planning using different representations (natural language, code, grids) in complex geometric shapes and their ability to generalize to longer horizon planning scenarios[[Code](./gpt-4-path-planning)]. 
+- [''Look Further Ahead: Testing the Limits of GPT-4 in Path Planning''](https://arxiv.org/abs/2406.12000): Testing LLMs ability to conduct path planning using different representations (natural language, code, grids) in complex geometric shapes and their ability to generalize to longer horizon planning scenarios. [[Code](./gpt-4-path-planning)] 
 
 # Citation
 
