@@ -17,7 +17,8 @@ If you find this work useful for your own research please cite the following pap
 @inproceedings{aghzal2024can,
   title={Can Large Language Models be Good Path Planners? A Benchmark and Investigation on Spatial-temporal Reasoning},
   author={Aghzal, Mohamed and Plaku, Erion and Yao, Ziyu},
-  booktitle={ICLR 2024 Workshop on Large Language Model (LLM) Agents}
+  booktitle={ICLR 2024 Workshop on Large Language Model (LLM) Agents},
+  year={2024}
 }
 
 @inproceedings{aghzal2024look,
