@@ -54,3 +54,10 @@ replace the command line arguments with desired values for
 - **$num_goals:** The number of desired goals.
 - **$generate_train_set:** set to 1 if you would like to generate all sets (training, dev, seen, unseen) or 0 if you would only like the test set. 
 
+3. **Generate the paths**: run the following python script
+
+``python data-synthesis/generate_samples.py $dataset``
+
+replace the command line arguments with desired values for
+
+- **$dataset:** path to the dataset(s) generated in step 2.
