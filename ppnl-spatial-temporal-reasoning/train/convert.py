@@ -1,6 +1,16 @@
 import json
+import sys
 
-f = open('../multi-goal/multigoal_train_none_order0.json')
+file_to_convert = sys.argv[1]
+single_or_multi = sys.argv[2]
+
+
+if "single" in single_or_multi:
+    tg = 'agent_as_a_point'
+else:
+    tg = 'solution_inspect' 
+    
+f = open(file_to_convert)
 
 data = json.load(f)
 
@@ -8,15 +18,15 @@ spider = []
 for item in data:
     spider.append({
         'question': item['nl_description'],
-        'target': item['solution_inspect']
+        'target': item[tg]
     })
 
-with open('T5/transformers_cache/multigoal_train_updated.json', 'w') as fo:
+with open(f'T5/transformers_cache/{file_to_convert.split("/")[-1]}', 'w') as fo:
         json_object = json.dumps(spider, indent = 4)
         fo.write(json_object)
         fo.write('\n')
 
-with open('BART/transformers_cache/multigoal_train_updated.json', 'w') as fo:
+with open(f'BART/transformers_cache/{file_to_convert.split("/")[-1]}', 'w') as fo:
         json_object = json.dumps(spider, indent = 4)
         fo.write(json_object)
         fo.write('\n')
