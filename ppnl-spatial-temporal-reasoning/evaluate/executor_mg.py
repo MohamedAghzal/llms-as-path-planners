@@ -22,8 +22,6 @@ def extract_goals(nl_description):
         
     return goals
 
-
-
 def check_constraint(actions, pos, goals, grid, nx=6, ny=6, constraint=None):
     '''
         -1: Constraints not satisfied and not all goals visited.
@@ -158,7 +156,7 @@ def is_optimal(ground_truth, actions):
 
     return (len(actions.replace(' ', '')) <= len(ground_truth.replace(' ', '')))
 
-def get_metrics(data, data_original, nb_obstacles=None):
+def get_metrics(data, nb_obstacles=None):
 
     ans = 0
     manhattan = 0
@@ -169,10 +167,9 @@ def get_metrics(data, data_original, nb_obstacles=None):
     cnt = 0
     denom = 0
     for i in range(len(data)):
-        #print(data[i]['predicted'])
         grid = data_original[i]['world']
         predicted = data[i]['generated'][0]
-        truth = data[i]['ground_truth']
+        truth = data_original[i]['solution_inspect']
         nl_description = data[i]['english'] 
         goals = extract_goals(nl_description)
 
@@ -183,9 +180,7 @@ def get_metrics(data, data_original, nb_obstacles=None):
             for p in range(len(grid[0])):
                 obsts += (grid[k][p] == 1)
         
-        #obsts = len(truth.split(' ')[:-1])
         if(nb_obstacles is None or obsts == nb_obstacles):
-
                 
                 if('before' not in nl_description):
                     continue
@@ -236,7 +231,6 @@ def get_metrics(data, data_original, nb_obstacles=None):
         'Total': cnt,
         'EM': em / cnt,
         'Success rate': ans / cnt,
-       # 'Distance': manhattan / denom,
         'Valid': 1 - invalid / cnt,
         'All Visited': all_visited / cnt,
         'Optimal': opt / cnt
@@ -260,7 +254,4 @@ metrics = get_metrics(data, data_original, None)
 
 for metric in metrics:
     print(metric, metrics[metric])
-
-df = pd.DataFrame(out_stats, columns=['path-len', 'EM', 'Success rate', 'Valid', 'All Visited', 'Optimal'])
-df.to_excel('per_obst_stats_moreobsts_react_mg.xlsx', index=False)
     
