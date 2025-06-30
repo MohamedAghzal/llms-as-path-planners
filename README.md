@@ -1,4 +1,4 @@
-# Evaluation Large Language Models as Path Planners
+# Evaluating Large Language Models as Path Planners
 
 This repository contains the code for Path Planning from Natural Language (PPNL) dataset for testing the ability of Large Language Models (LLMs) to conduct path planning, which was proposed in the following papers:
 
