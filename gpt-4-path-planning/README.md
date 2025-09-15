@@ -1,6 +1,6 @@
 # GPT-4 Path Planning
 
-This repository contains code for evaluating GPT-4's spatial reasoning capabilities on long-horizon path planning tasks. The project focuses on single-goal path planning in grid-based environments with different geometric configurations and input representations.
+This repository contains code for evaluating GPT-4's spatial reasoning capabilities on long-horizon path planning tasks. The project focuses on single-goal path planning in grid-based environments with different geometric configurations and input representations, and emphasize generalization across different path lengths and geometries.
 
 ## Overview
 
