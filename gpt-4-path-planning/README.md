@@ -45,19 +45,19 @@ This work supports 3 types of environments:
 #### 1. Rectangle Blocks
 Rectangular obstacle regions that create block-like barriers in the grid.
 
-![Rectangle Blocks Example](images/blocks.png)
+<img src="images/blocks.png" alt="Rectangle Blocks Example" width="420" />
 *Example of rectangular obstacle blocks in a 25x25 grid*
 
 #### 2. Maze Patterns  
 Spiral maze-like configurations that create complex navigation challenges.
 
-![Maze Pattern Example](images/maze_pattern.png)
+<img src="images/maze.png" alt="Maze Pattern Example" width="420" />
 *Example of spiral maze pattern in a 25x25 grid*
 
 #### 3. Zig-Zag Patterns
 Alternating row or column obstacles that create zig-zag barrier patterns.
 
-![Zig-Zag Pattern Example](images/zig_zag_pattern.png)
+<img src="images/zig_zag.png" alt="Zig-Zag Pattern Example" width="420" />
 *Example of zig-zag obstacle pattern in a 25x25 grid*
 
 
