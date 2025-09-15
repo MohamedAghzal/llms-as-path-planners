@@ -1,199 +1,226 @@
-import representations
-import place_agent_goals_sg
-import one_entrance
-import geometries
-from generate_samples import a_star, solution_point
-import json
-import numpy as np
-import random
+def generate_code_rectangle(x, y, obstacles, goals, initial_loc, points):
 
-def zig_zag_samples(data, axis = 'row'):
-
-    samples = []
-    for world in data:
-        grid = world['world']
-
-        obstacles = [[obs[0], obs[1]] for obs in world['obstacles']]
-
-        start = world['start']
-        goals = world['goals']
-
-
-        nl = representations.naive_enumeration(len(grid), len(grid[0]), obstacles, goals, start)
-
-        grid_rep = representations.generate_grid(grid)
-
-        world['grid_representation'] = grid_rep
-        world['naive_representation'] = nl
-        
-        if(axis == 'row'):
-            world['code_representation'] = representations.generate_code_alternate_row(25, 25, obstacles, goals, start)
-        else:
-            world['code_representation'] = representations.generate_code_alternate_column(25, 25, obstacles, goals, start)
-        
-        if(len(goals) == 1):
-            coordinates = a_star(np.array(grid), (start[0], start[1]), (goals[0][0], goals[0][1]))
-            sol_point = solution_point(coordinates)
-
-            world['path'] = sol_point
-            
-            samples.append(world)
-
-    return samples
-
-def is_row(world):
-    row_is_filled = False
-
-    for i in range(len(world)):
-        for j in range(len(world[0])):
-            if(j > 0 and world[i][j] == 1 and world[i][j - 1] == 1):
-                row_is_filled = True
-    
-    return row_is_filled
-
-def geometry_samples(data, shape='rectangle'):
-    samples = []
-    for world in data:
-        grid = world['world']
-
-        obstacles = [[obs[0], obs[1]] for obs in world['obstacles']]
-
-        start = world['start']
-        goals = world['goals']
-
-
-        nl = representations.naive_enumeration(len(grid), len(grid[0]), obstacles, goals, start)
-
-        grid_rep = representations.generate_grid(grid)
-
-        world['grid_representation'] = grid_rep
-        world['naive_representation'] = nl
-        if(shape == 'rectangle'):
-            world['code_representation'] = representations.generate_code_rectangle(
-                x=25, 
-                y=25, 
-                goals=goals, 
-                obstacles=obstacles, 
-                initial_loc=start, 
-                points=world['points']
-            )
-        elif(shape == 'triangle'):
-            world['code_representation'] = representations.generate_code_triangle(
-                x=25,
-                y=25,
-                obstacles=obstacles,
-                goals=goals,
-                initial_loc=start
-            )
-
-        elif(shape == 'maze'):
-            world['code_representation'] = representations.generate_code_spiral(
-                size_x=25,
-                size_y=25,
-                obstacles=obstacles,
-                goals=goals,
-                initial_loc=start
-            )
-        elif(shape == 'zig_zag'):
-            check = is_row(grid)
-            if(check):
-                world['code_representation'] = representations.generate_code_alternate_row(
-                    25, 
-                    25, 
-                    obstacles, 
-                    goals, 
-                    start
-                )
-            else:
-                world['code_representation'] = representations.generate_code_alternate_column(
-                    25, 
-                    25, 
-                    obstacles, 
-                    goals, 
-                    start
-                )
-
-        if(len(goals) == 1):
-            coordinates = a_star(np.array(grid), (start[0], start[1]), (goals[0][0], goals[0][1]))
-            sol_point = solution_point(coordinates)
-            world['path'] = sol_point
-            samples.append(world)
-    
-    return samples
-
-def main():
-
-    #IID
-    triangs = geometries.sample(25, 'maze', 200)
-    data_triangs = place_agent_goals_sg.build_environments(triangs, low=2, high=26, vals = [5, 10, 15, 20, 25], trials=3)
-
-    sampled_tri = geometry_samples(data_triangs, shape='maze')
-
-    with open('maze_data_sg_iid.json', 'w') as f:
-        ob = json.dumps(sampled_tri, indent=4)
-        f.write(ob)
-
-    data_triangs = place_agent_goals_sg.build_environments(triangs, low=26, high=200, vals = [30, 40, 50, 60, 75], trials=1)
-
-    sampled_tri = geometry_samples(data_triangs, shape='maze')
-
-    with open('maze_data_sg_ood.json', 'w') as f:
-        ob = json.dumps(sampled_tri, indent=4)
-        f.write(ob)
-
-    X = one_entrance.sample(25, 'row', 200)
-    Y = one_entrance.sample(25, 'column', 200)
-
-    #in distribution
-    data_one_entrance_row = place_agent_goals_sg.build_environments(X, low=2, high=26, vals = [5, 10, 15, 20, 25], trials=3)
-    data_one_entrance_col = place_agent_goals_sg.build_environments(Y, low=2, high=26, vals = [5, 10, 15, 20, 25], trials=3)
-
-    r = zig_zag_samples(data_one_entrance_row, axis='row')
-    c = zig_zag_samples(data_one_entrance_col, axis='column')
-
-    
-    one_entrance_data = r + c
-
-    random.shuffle(one_entrance_data)
-
-    with open('zig_zag_data_sg_indist.json', 'w') as f:
-        ob = json.dumps(one_entrance_data, indent=4)
-        f.write(ob)
-
-
-    #out of distribution
-    data_one_entrance_row = place_agent_goals_sg.build_environments(X, low=26, high=200, vals = [30, 50, 60, 75, 100], trials=1)
-    data_one_entrance_col = place_agent_goals_sg.build_environments(Y, low=26, high=200, vals = [30, 50, 60, 75, 100], trials=1)
-
-    r = zig_zag_samples(data_one_entrance_row, axis='row')
-    c = zig_zag_samples(data_one_entrance_col, axis='column')
-
-    one_entrance_data = r + c
-
-    random.shuffle(one_entrance_data)
-    
-    with open('zig_zag_data_sg_ood.json', 'w') as f:
-        ob = json.dumps(one_entrance_data, indent=4)
-        f.write(ob)
-
-    rects = geometries.sample(25, 'rectangle', 200)
-    data_rects = place_agent_goals_sg.build_environments(rects, low=2, high=26, vals=[2, 5, 10, 15, 20], trials=3)
-
-    sampled_rect = geometry_samples(data_rects, shape='rectangle')
-
-    with open('rectangle_data_sg_iid.json', 'w') as f:
-        ob = json.dumps(sampled_rect, indent=4)
-        f.write(ob)
-    
-    # OOD
-    data_rects = place_agent_goals_sg.build_environments(rects, low=26, high=200, vals = [25, 30, 35, 40, 45], trials=1)
-
-    sampled_rect = geometry_samples(data_rects, shape='rectangle')
-
-    with open('rectangle_data_sg_ood.json', 'w') as f:
-        ob = json.dumps(sampled_rect, indent=4)
-        f.write(ob)
-
-if __name__ == '__main__':
-    main()
+    output = f"""
+#The goal is to navigate a {x}x{y} grid to go from the initial location to the goal while avoiding obstacles
  
+obstacles = []
+goals = {[(goals[0][0], goals[0][1])]}
+initial_location = {(initial_loc[0], initial_loc[1])}
+"""
+    for pts in points:
+        output += f"""
+for i in range({pts[0][0]}, {pts[3][0]}):
+    for j in range({pts[0][1]}, {pts[3][1]}):
+        obstacles.append((i, j))
+        """
+    return output
+
+def generate_code_spiral(size_x, size_y, obstacles, goals, initial_loc):
+    size = size_x
+
+    ent = []
+    for i in range(0, size_x // 2, 2):
+        obstacle_set = set(map(tuple, obstacles))
+
+        for x in range(i, size - i):
+            if (i, x) not in obstacle_set and (i - 1, x) not in obstacle_set:
+                ent.append((i, x))
+            if (size - i - 1, x) not in obstacle_set and (size - i, x) not in obstacle_set:
+                ent.append((size - i - 1, x))
+
+        for y in range(i, size - i):
+            if (y, i) not in obstacle_set and (y, i - 1) not in obstacle_set:
+                ent.append((y, i))
+            if (y, size - i - 1) not in obstacle_set and (y, size - i) not in obstacle_set:
+                ent.append((y, size - i - 1))
+
+    print(size_x, size_y)
+    output = f"""
+#The goal is to navigate a {size_x}x{size_y} grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goal = {(goals[0][0], goals[0][1])}
+initial_location = {(initial_loc[0], initial_loc[1])}
+entrances = {ent}
+
+for i in range(0, {size // 2}, 2):
+    # Top horizontal line 
+    for x in range(i, {size} - i):
+        if((i, x) not in entrances):
+            obstacles.append((i, x))
+    # Right vertical line
+    for y in range(i, {size} - i):
+        if((y, {size} - i - 1) not in entrances):
+            obstacles.append((y, {size} - i - 1))
+    # Bottom horizontal line
+    for x in range({size} - i - 1, i, -1):
+        if(({size} - i - 1, x) not in entrances):
+            obstacles.append(({size} - i - 1, x))     
+    # Left vertical line
+    for y in range({size} - i - 1, i, -1):
+        if((y, i) not in entrances):
+            obstacles.append((y, i))
+            
+    for i in range(0, {size}, 2):
+        if((i, i) not in obstacles):
+            obstacles.append((i, i))
+"""
+
+    return output
+
+def generate_code_alternate_column(x, y, obstacles, goals, initial_loc):
+    
+    ent = []
+    for i in range(y):
+        obsts_per_row = []
+        for obst in obstacles:
+            if(obst[1] == i):
+                obsts_per_row.append(obst[0])
+        if(i % 2 == 0):
+            continue
+
+        for k in range(x):
+            if(k not in obsts_per_row):
+                ent.append((k, i))
+    
+
+
+    output = f"""
+#The goal is to navigate a {x}x{y} grid to go from the initial location to the goal location while avoiding obstacles
+ 
+obstacles = []
+goals = {(goals[0][0], goals[0][1])}
+initial_location = {(initial_loc[0], initial_loc[1])}
+entrances = {ent}
+
+for j in range(1, {y}, 2):
+    for i in range({x}):
+        if((i, j) not in entrances):
+            obstacles.append((i, j))
+"""
+        
+    return output
+
+def generate_code_alternate_row(x, y, obstacles, goals, initial_loc):
+    
+    ent = []
+    for i in range(y):
+        obsts_per_row = []
+        for obst in obstacles:
+            if(obst[0] == i):
+                obsts_per_row.append(obst[1])
+        if(i % 2 == 0):
+            continue
+        for k in range(x):
+            if(k not in obsts_per_row):
+                ent.append((i, k))
+    
+
+
+    output = f"""
+#The goal is to navigate a {x}x{y} grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goals = {(goals[0][0], goals[0][1])}
+initial_location = {(initial_loc[0], initial_loc[1])}
+entrances = {ent}
+
+for i in range(1, {x}, 2):
+    for j in range({y}):
+        if((i, j) not in entrances):
+            obstacles.append((i, j))
+"""
+        
+    return output
+
+def generate_code_triangle(x, y, obstacles, goals, initial_loc):
+    
+    output = f"""
+#The goal is to navigate a {x}x{y} grid to go from the initial location to all goals while avoiding obstacles
+ 
+obstacles = []
+goals = {goals}
+initial_location = {initial_loc}
+
+"""
+    for i in range(x):
+        obsts_per_row = []
+
+        for obst in obstacles:
+            if(obst[0] == i):
+                obsts_per_row.append(obst[1])
+        
+        if(len(obsts_per_row) == 0):
+            continue
+        
+        vals = sorted(obsts_per_row)
+
+        start, end = vals[0], vals[len(vals) - 1]
+        ans = -1
+                
+        add_on = f"""
+for j in range({start},{end}): 
+    obstacles.append([{i},j])
+"""
+        
+        output += add_on
+        
+    return output
+
+def naive_enumeration(x, y, obstacles, goals, initial_loc, constraint='None'):
+
+    english = f'You are in a {x} by {y} world. There are obstacles that you have to avoid at: '
+
+    for i in range(len(obstacles)):
+        obstacle = obstacles[i]
+        english += f'({obstacle[0]},{obstacle[1]})'
+        if(i < len(obstacles) - 2):
+                english += ', '
+        elif (i == len(obstacles) - 2): 
+                english += ' and '
+    
+
+    english += '. '
+    if(len(goals) == 1):
+        english += f'Go from ({initial_loc[0]},{initial_loc[1]}) to ({goals[0][0]},{goals[0][1]})' 
+    
+    else:
+        english += f'You are at ({initial_loc[0]},{initial_loc[1]}).'
+
+        english += ' You have to visit ' 
+        for i in range(len(goals)):
+            english += f'p{i}'
+            if(i < len(goals) - 2):
+                english += ', '
+            elif (i == len(goals) - 2): 
+                english += ' and '
+        
+        english += '. '
+
+        for i in range(len(goals)):
+            english += f'p{i} is located at ({goals[i][0]},{goals[i][1]})'
+            if(i < len(goals) - 2):
+                english += ', '
+            elif (i == len(goals) - 2): 
+                english += ' and '
+        
+        english += '. '
+        if('arithm' in constraint):
+            plan = constraint.split(' ')
+
+            if(len(plan) == 2):
+                english += 'Visit ' + plan[1] + ' numbered locations first.'
+
+            elif(len(plan) == 3):
+                english += 'Visit divisors of ' + plan[2] + ' first.' 
+    return english
+
+def generate_grid(grid):
+    grid_str = ''
+
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            grid_str += f'{grid[i][j]}'
+        grid_str += '\n'
+
+    return grid_str
