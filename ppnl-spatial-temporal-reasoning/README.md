@@ -32,6 +32,95 @@ In order to generate all single goal data (using the same values as the paper), 
 
 ``./data-synthesis/generate_all_mg_data.sh``
 
+Running the scripts will generate files in the following locations:
+
+### Generated Files Location
+
+#### Raw Environment Files
+- **`data-synthesis/environments/`** - Contains base environment configurations with obstacles
+  - `5x5/` - 5x5 grid environments
+  - `6x6/` - 6x6 grid environments 
+  - `6x6more_obstacles/` - 6x6 grids with 6-12 obstacles
+  - `7x7/` - 7x7 grid environments
+
+#### Processed Environment Files (Goal and Initial Location Placed)
+- **`data-synthesis/environments_init_goal_sg/`** - Single-goal environments with agent start positions and goals
+- **`data-synthesis/environments_init_goal_mg/`** - Multi-goal environments with agent start positions and multiple goals
+
+#### Final Sample Files
+- **`single_goal/`** - Processed single-goal samples with natural language descriptions and solutions
+- **`multi_goal/`** - Processed multi-goal samples with natural language descriptions and solutions
+
+### Data Statistics
+
+#### Single Goal Environments
+| File | Environments | Description |
+|------|-------------|-------------|
+| `1_train_set_6x6.json` | 16,032 | Training set for 6x6 grids |
+| `1dev_set_6x6.json` | 2,004 | Development set for 6x6 grids |
+| `1_goals_test_seen_6x6.json` | 2,004 | Test set (seen environments) for 6x6 grids |
+| `1goals_unseen_6x6.json` | 5,040 | Test set (unseen environments) for 6x6 grids |
+| `1_goals_test_unseen_5x5.json` | 3,750 | Test set (unseen environments) for 5x5 grids |
+| `1_goals_test_unseen_7x7.json` | 3,750 | Test set (unseen environments) for 7x7 grids |
+| `1_goals_test_unseen_6x6more_obstacles.json` | 4,500 | Test set (unseen environments) for 6x6 grids with more obstacles |
+
+
+### Data Format and Keys
+
+#### Raw Environment Format (`data-synthesis/environments/`)
+```json
+{
+  "shape": [6, 6],
+  "obstacles": [[5, 3], [1, 0]]
+}
+```
+
+**Keys:**
+- `shape`: Grid dimensions as [height, width]
+- `obstacles`: List of obstacle coordinates as [row, col]
+
+#### Processed Environment Format (`data-synthesis/environments_init_goal_sg/` and `data-synthesis/environments_init_goal_mg/`)
+```json
+{
+  "world": [[0,0,0,0,0,0], [0,0,0,0,2,0], [0,3,0,0,0,0], ...],
+  "obstacles": [[5,3]],
+  "start": [1,4],
+  "goals": [[2,1]]
+}
+```
+
+**Keys:**
+- `world`: 2D grid representation where:
+  - `0` = empty cell
+  - `1` = obstacle
+  - `2` = agent start position
+  - `3` = goal position
+- `obstacles`: List of obstacle coordinates as [row, col]
+- `start`: Agent starting position as [row, col]
+- `goals`: List of goal positions as [row, col] (single goal for SG, multiple for MG)
+
+#### Final Sample Format (`single_goal/` and `multi_goal/`)
+```json
+{
+  "world": [[0,0,0,0,0,0], [0,0,0,0,2,0], [0,3,0,0,0,0], ...],
+  "nl_description": "You are in a 6 by 6 world. There are obstacles that you have to avoid at: (5,3). Go from (1,4) to (2,1)",
+  "solution_coordinates": [[1,4], [1,3], [1,2], [1,1], [2,1]],
+  "agent_as_a_point": "left left left down ",
+  "agent_has_direction": "turn right move forward move forward move forward turn left move forward ",
+  "solution_inspect": "up up up up left left left inspect down down left down down down inspect "
+}
+```
+
+**Keys:**
+- `world`: Same as processed environment format
+- `nl_description`: Natural language description of the task
+- `solution_coordinates`: Optimal path as sequence of [row, col] coordinates
+- `agent_as_a_point`: Solution as directional movements (up, down, left, right)
+- `agent_has_direction`: Solution as turn/move commands for oriented agent
+- `solution_inspect`: Multi-goal solution with "inspect" commands at goal locations (MG only)
+
+## **Generating Custom Data**
+
 In order to generate custom data, the following three steps have to be followed:
 
 1. **Generate Environments**: run the following python script
@@ -44,7 +133,7 @@ replace the command line arguments with desired values for
 - **$num_obstacles:** The number of obstacles in the environments.
 - **$num_environments:** The number of the environments to be generated.
 
-This generated environments will be generated under 
+This generated environments will be generated under ``/environments``
 
 2. **Place agent and goals**: run the following python script
 

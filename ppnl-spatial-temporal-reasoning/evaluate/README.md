@@ -12,8 +12,8 @@ In order to get metrics for the model's outputs on the dataset run the following
 
 **Single Goal**:
 
-``python executor-point-sg.py $path_to_test_data $path_to_model_outputs``
+``python executor-point-sg.py $path_to_model_outputs  $path_to_test_data ``
 
 **Multi-Goal**:
 
-``python executor-mg.py $path_to_test_data $path_to_model_outputs``
+``python executor-mg.py $path_to_model_outputs $path_to_test_data``
