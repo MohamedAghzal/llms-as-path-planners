@@ -229,28 +229,20 @@ def get_metrics(data, nb_obstacles=None):
     print(manhattan, denom)
     return {
         'Total': cnt,
-        'EM': em / cnt,
+        'Exact match': em / cnt,
         'Success rate': ans / cnt,
-        'Valid': 1 - invalid / cnt,
+        'Feasible': 1 - invalid / cnt,
         'All Visited': all_visited / cnt,
         'Optimal': opt / cnt
     }
 
-f = open(sys.argv[1])
+f = open(sys.argv[2])
 data = json.load(f)
 
-f2 = open(sys.argv[2])
+f2 = open(sys.argv[1])
 data_original = json.load(f2)
 
-
-if(sys.argv[3] == 'None'):
-    n_obs = None
-else:
-    n_obs = int(sys.argv[3])
-
-out_stats = []
-
-metrics = get_metrics(data, data_original, None)
+metrics = get_metrics(data, data_original, nb_obstacles=None)
 
 for metric in metrics:
     print(metric, metrics[metric])

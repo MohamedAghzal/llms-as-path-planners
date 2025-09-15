@@ -3,8 +3,6 @@ import heapq
 import pandas as pd 
 import sys
 
-x = int(sys.argv[3])
-y = int(sys.argv[4])
 def is_goal(grid, pos, actions, nx, ny):
     acts = ['up', 'down', 'left', 'right']
 
@@ -121,13 +119,11 @@ def get_metrics(data, data_original, nb_obstacles=None):
             for p in range(len(grid[0])):
                 obsts += (grid[k][p] == 1)
         
-        print(obsts)
-
-
+        #print(obsts)
 
         if(nb_obstacles is None or obsts >= nb_obstacles):
 
-                em += (truth.replace(' ', '') == data[i]['generated'][0].replace(' ', ''))
+                em += (truth.replace(' ', '') == output_data[i]['generated'][0].replace(' ', ''))
 
                 
                 for k in range(len(grid)):
@@ -140,7 +136,7 @@ def get_metrics(data, data_original, nb_obstacles=None):
 
                 cnt += 1
                 
-                test = is_goal(grid, init, predicted, x, y)
+                test = is_goal(grid, init, predicted, len(grid), len(grid[0]))
                 if(test == 1): 
                     ans += 1
                 elif(test == 2):
@@ -149,15 +145,15 @@ def get_metrics(data, data_original, nb_obstacles=None):
                 print(truth.split(' '))
                 pp = {
                     'n': len(truth.split(' ')[:-1]),
-                    'exact_match':  (truth.replace(' ', '') == data[i]['generated'][0].replace(' ', '')) * 1,
+                    'exact_match':  (truth.replace(' ', '') == output_data[i]['generated'][0].replace(' ', '')) * 1,
                     'success': (test == 1) * 1,
-                    'optimal': is_optimal(grid, truth, init, predicted, x, y) * 1,
-                    'valid': (distance_from_goal(grid, init, predicted, x, y) != -1 
-                            and distance_from_goal(grid, init, predicted, x, y) != 100) * 1
+                    'optimal': is_optimal(grid, truth, init, predicted, len(grid), len(grid[0])) * 1,
+                    'valid': (distance_from_goal(grid, init, predicted, len(grid), len(grid[0])) != -1 
+                            and distance_from_goal(grid, init, predicted, len(grid), len(grid[0])) != 100) * 1
                 }
-                dist = distance_from_goal(grid, init, predicted, x, y)
+                dist = distance_from_goal(grid, init, predicted, len(grid), len(grid[0]))
 
-                opt += is_optimal(grid, truth, init, predicted, x, y)
+                opt += is_optimal(grid, truth, init, predicted, len(grid), len(grid[0]))
 
                 if(dist == -1 or dist == 100):
                     invalid += 1
@@ -169,31 +165,22 @@ def get_metrics(data, data_original, nb_obstacles=None):
         
     return {
         'Total': cnt,
-        'EM': em / cnt,
-        'Is Goal': ans / cnt,
+        'Exact match': em / cnt,
+        'Success rate': ans / cnt,
         'Distance': manhattan / valid,
-        'Valid': 1 - invalid / cnt,
+        'Feasible': 1 - invalid / cnt,
         'Optimal': opt / cnt
     }, path_length
 
 f = open(sys.argv[1])
-data = json.load(f)
+output_data = json.load(f)
 
 f2 = open(sys.argv[2])
 data_original = json.load(f2)
 
-print(len(data), len(data_original))
+print(len(output_data), len(data_original))
 
-unique = []
-
-for el in data:
-    if(el in unique):
-        continue
-    unique.append(el)
-
-data = unique
-
-metrics, path_length = get_metrics(data, data_original, None)
+metrics, path_length = get_metrics(output_data, data_original, None)
 
 for metric in metrics:
     print(metric, metrics[metric])

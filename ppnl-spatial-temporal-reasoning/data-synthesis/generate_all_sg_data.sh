@@ -24,7 +24,7 @@ done
 python3 place_agent_goals.py environments/5x5 1 0
 
 # Generating 6-12 obstacles environments
-for i in {6..12}
+for i in {6..11}
 do
     python3 generate_envs.py 6 $i 25
 done

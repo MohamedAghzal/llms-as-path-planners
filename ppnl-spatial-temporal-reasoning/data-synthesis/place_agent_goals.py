@@ -78,6 +78,7 @@ def main():
 
     ng = 'sg' if n_goals == 1 else 'mg'
     
+
     for env in envs:
         with open(str(sys.argv[1]) + '/' + env) as f:
             data = json.load(f)
@@ -89,24 +90,26 @@ def main():
                 obstacles = inst['obstacles']
                 shape = inst['shape']
 
-                print(obstacles)
+                #print(obstacles)
                 
-                combinations = generate_worlds(obstacles, shape[0], n_goals, trials=30 if ng == 1 else 10)
+                combinations = generate_worlds(obstacles, shape[0], n_goals, trials=30 if ng == "sg" else 10)
+
+                print("# of combinations", len(combinations))
 
                 tr = int(0.8 * len(combinations))
                 dv = int(0.1 * len(combinations))
                 ts = int(0.1 * len(combinations))
                 
-                print(tr, dv, ts)
-                print(len(combinations))
+                #print(tr, dv, ts)
+                #print(len(combinations))
                 for comb in combinations[:tr]:
                     worlds_train.append(comb)
                 for comb in combinations[tr:tr+ts]:
                     worlds_dev.append(comb)
                 for comb in combinations[tr+ts:]:
                     worlds_test.append(comb)
-
-            print(len(worlds_train), len(worlds_test), len(worlds_dev))
+            
+            #print("Worlds",len(worlds_train), len(worlds_test), len(worlds_dev))
 
     
     os.makedirs(f"environments_init_goal_{ng}/", exist_ok=True)
@@ -141,7 +144,7 @@ def main():
                     shape = inst['shape']
 
                     print(obstacles)
-                    combinations = generate_worlds(obstacles, shape[0], n_goals, trials=30)
+                    combinations = generate_worlds(obstacles, shape[0], n_goals, trials=30 if ng == "sg" else 10)
 
                     tr = int(0.8 * len(combinations))
                     dv = int(0.1 * len(combinations))
@@ -159,11 +162,29 @@ def main():
             fo.write(json_object)
             fo.write('\n')
     else:
-       add = ''
-       if 'more_obstacles' in str(sys.argv[1]): 
+        add = ''
+        worlds_unseen = []
+        for env in envs:
+            with open(str(sys.argv[1]) + '/' + env) as f:
+                data = json.load(f)
+
+                for inst in data:
+                    obstacles = inst['obstacles']
+                    shape = inst['shape']
+
+                    print(obstacles)
+                    combinations = generate_worlds(obstacles, shape[0], n_goals, trials=30 if ng == "sg" else 10)
+
+                    print(len(combinations))
+                    for comb in combinations:
+                        worlds_unseen.append(comb)
+
+                print(len(worlds_unseen))
+        
+        if 'more_obstacles' in str(sys.argv[1]): 
            add = "more_obstacles"
-       with open(f'environments_init_goal_{ng}/'+str(n_goals)+f'_goals_test_seen_{shape[0]}x{shape[1]}{add}' + '.json', 'w') as fo:
-            json_object = json.dumps(worlds_test, indent = 4)
+        with open(f'environments_init_goal_{ng}/'+str(n_goals)+f'_goals_test_unseen_{shape[0]}x{shape[1]}{add}' + '.json', 'w') as fo:
+            json_object = json.dumps(worlds_unseen, indent = 4)
             fo.write(json_object)
             fo.write('\n') 
 

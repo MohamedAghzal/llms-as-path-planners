@@ -402,14 +402,11 @@ def solution_plan(plan):
 
     return path
 
-
-
 def main():
     '''
     CLA:
         directory/setting
     '''
-
 
     samples = []
     with open(str(sys.argv[1])) as f:
@@ -444,13 +441,6 @@ def main():
                 sol_point = solution_point(coordinates)
                 sol_direct = solution_direction(sol_point)
                 plan = solution_plan(steps)
-            
-                '''
-                    Add:
-                    - constraints
-                        Arithmetic: ~3200 (train) from each class for each # of goals
-                        Before: Random x before y ~20000?
-                '''
 
                 sample = {
                     'world': grid,
