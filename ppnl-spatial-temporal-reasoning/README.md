@@ -156,3 +156,38 @@ replace the command line arguments with desired values for
 ## **Using Pre-generated Data**
 
 While we recommend generating new data instances in order to avoid data contamination issues (e.g. the LLM having encountered the data during pre-training), we also provide a set of pre-generated datasets to help you get started. This can be found under the directory [single_goal](./single_goal_original) for the single goal setting and [multi_goal](./multi_goal_original) for the multi-goal setting.
+
+## Evaluation
+
+The scripts for evaluation can be found under ``/evaluate``. 
+
+In order to evaluate the outputs of your model, make sure your entries are saved in a ``.json`` that follows the format below:
+
+```
+{
+    "english": natural language specification of the task.make sure this follows exactly the same template as the synthesized data. This should be the same as the 'nl_description' of the corresponding entry in your test set.
+    "ground_truth": the ground truth plan generated during the data synthesis process.
+    "generated": The plan produced by your model. 
+} 
+```
+
+In order to get metrics for the model's outputs on the dataset run the following:
+
+1. Navigate to the evaluation directory
+
+``cd evaluate``
+
+
+2. Run the correspoding executor
+
+**Single Goal**:
+
+``python executor-point-sg.py $path_to_model_outputs  $path_to_test_data ``
+
+**Multi-Goal**:
+
+``python executor-mg.py $path_to_model_outputs $path_to_test_data``
+
+## In-Context Learning
+
+The scripts for running in-context learning can be found under ``/ICL``. The prompts used are available under ``/ICL/prompts``. 

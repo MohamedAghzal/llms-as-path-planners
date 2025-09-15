@@ -163,10 +163,13 @@ def main():
                 res_iid.append(few_shot_inference(train, test_iid, 5, 'Naive'))
                 res_ood.append(few_shot_inference(train, test_ood, 5, 'Naive'))  
 
-           with open(f'outputs_fullSet/{choice}_out_5_shot_{geometry}_{representation}_iid_fewShot_15x15.json', 'w') as f:
+           # Determine grid size from the data
+           grid_size = len(iid_data[0]['world']) if iid_data else 25
+           
+           with open(f'outputs_fullSet/{choice}_out_5_shot_{geometry}_{representation}_iid_fewShot_{grid_size}x{grid_size}.json', 'w') as f:
                 obj = json.dumps(res_iid, indent=4)
                 f.write(obj)
-           with open(f'outputs_fullSet/{choice}_out_5_shot_{geometry}_{representation}_ood_fewShot_15x15.json', 'w') as f:
+           with open(f'outputs_fullSet/{choice}_out_5_shot_{geometry}_{representation}_ood_fewShot_{grid_size}x{grid_size}.json', 'w') as f:
                 obj = json.dumps(res_ood, indent=4)
                 f.write(obj)
 
@@ -259,10 +262,13 @@ def main():
                         res_ood.append(decomposed_ood)
 
 
-                with open(f'../outputs/{choice}_out_5_shot_{geometry}_{representation}_iid_decomposed.json', 'w') as f:
+                # Determine grid size from the data
+                grid_size = len(iid_data[0]['world']) if iid_data else 25
+                
+                with open(f'../outputs/{choice}_out_5_shot_{geometry}_{representation}_iid_fewShot_{grid_size}x{grid_size}.json', 'w') as f:
                         obj = json.dumps(res_iid, indent=4)
                         f.write(obj)
-                with open(f'../outputs/{choice}_out_5_shot_{geometry}_{representation}_ood_decomposed.json', 'w') as f:
+                with open(f'../outputs/{choice}_out_5_shot_{geometry}_{representation}_ood_fewShot_{grid_size}x{grid_size}.json', 'w') as f:
                         obj = json.dumps(res_ood, indent=4)
                         f.write(obj)
 
