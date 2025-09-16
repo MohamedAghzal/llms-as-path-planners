@@ -11,7 +11,7 @@ PPNL is a benchmark designed to assess the spatial-temporal reasoning abilities 
 ### **Task Settings**
 #### **1. Single-Goal Path Planning**
 - The agent must reach a **single** goal location (**l = 1**).
-- **Action space**: **Up, Down, Left, Right**.
+- **Action space**: **up, down, left, right**.
 
 #### **2. Multi-Goal Path Planning**
 - The agent must visit **multiple** goal locations (**l > 1**).
@@ -21,6 +21,7 @@ PPNL is a benchmark designed to assess the spatial-temporal reasoning abilities 
 - **Additional action**: **Inspect** (marks a location as visited).
 
 ![PPNL Benchmark Diagram](PPNL.png)
+
 
 ## **Generating New Data**
 
